@@ -1,0 +1,19 @@
+{
+  "name": "summerleagues",
+  "version": "1.0.0",
+  "description": "Unified monorepo for Musou (4p), 3ma (3p), and HK16 Riichi leagues",
+  "private": true,
+  "packageManager": "pnpm@9.10.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "type-check": "pnpm -r tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}
