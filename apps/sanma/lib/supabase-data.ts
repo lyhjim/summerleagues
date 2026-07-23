@@ -1,6 +1,4 @@
-"use client"
-
-import { createClient } from "./supabase-client"
+import { querySanma, SANMA } from "./neon-client"
 import { getStaticMatchResults } from "./static-match-results"
 
 // Use static data for preliminary round (ends 2026-04-27)
@@ -34,81 +32,73 @@ export interface NewsItem {
   updated_at?: string
 }
 
-// Save lineup to Supabase
+// Save lineup to Neon
 export async function saveLineup(lineup: MatchLineup) {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.from("match_lineups").upsert(
-    {
-      match_id: lineup.matchId,
-      match_date: lineup.matchDate,
-      round: lineup.round,
-      players: lineup.players,
-    },
-    {
-      onConflict: "match_id",
-    },
-  )
-
-  if (error) {
+  try {
+    await querySanma(
+      `INSERT INTO sanma_match_lineups (league_id, season, match_id, match_date, round, players)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       ON CONFLICT (season, match_id) DO UPDATE SET
+         match_date = EXCLUDED.match_date,
+         players = EXCLUDED.players,
+         updated_at = NOW()`,
+      [SANMA.LEAGUE_ID, SANMA.CURRENT_SEASON, lineup.matchId, lineup.matchDate, lineup.round, JSON.stringify(lineup.players)]
+    )
+    return { match_id: lineup.matchId, match_date: lineup.matchDate, round: lineup.round, players: lineup.players }
+  } catch (error) {
     console.error("[v0] Error saving lineup:", error)
     throw error
   }
-
-  return data
 }
 
-// Get lineup from Supabase
+// Get lineup from Neon
 export async function getLineup(matchId: string) {
-  const supabase = createClient()
+  try {
+    const result = await querySanma(
+      `SELECT * FROM sanma_match_lineups WHERE match_id = $1`,
+      [matchId]
+    )
 
-  const { data, error } = await supabase.from("match_lineups").select("*").eq("match_id", matchId).single()
+    if (result.rows.length === 0) return null
 
-  if (error && error.code !== "PGRST116") {
-    // PGRST116 = not found
+    const data = result.rows[0]
+    return {
+      matchId: data.match_id,
+      matchDate: data.match_date,
+      round: data.round,
+      players: data.players,
+    }
+  } catch (error) {
     console.error("[v0] Error getting lineup:", error)
     throw error
   }
-
-  if (!data) return null
-
-  return {
-    matchId: data.match_id,
-    matchDate: data.match_date,
-    round: data.round,
-    players: data.players,
-  }
 }
 
-// Save results to Supabase
+// Save results to Neon
 export async function saveResults(results: MatchResults) {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.from("match_results").upsert(
-    {
-      match_id: results.matchId,
-      round: results.round,
-      date: results.date,
-      results: results.results,
-    },
-    {
-      onConflict: "match_id,round",
-    },
-  )
-
-  if (error) {
+  try {
+    await querySanma(
+      `INSERT INTO sanma_match_results (league_id, season, match_id, round, date, results)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       ON CONFLICT (season, match_id, round) DO UPDATE SET
+         date = EXCLUDED.date,
+         results = EXCLUDED.results,
+         updated_at = NOW()`,
+      [SANMA.LEAGUE_ID, SANMA.CURRENT_SEASON, results.matchId, results.round, results.date, JSON.stringify(results.results)]
+    )
+    
+    clearMatchResultsCache()
+    
+    return { match_id: results.matchId, round: results.round, date: results.date, results: results.results }
+  } catch (error) {
     console.error("[v0] Error saving results:", error)
     throw error
   }
-
-  clearMatchResultsCache()
-
-  return data
 }
 
-// Get all results from Supabase (uses same caching as getAllMatchResults)
+// Get all results from Neon (uses same caching as getAllMatchResults)
 export async function getAllResults() {
-  // Use the cached getAllMatchResults to avoid duplicate Supabase calls
+  // Use the cached getAllMatchResults to avoid duplicate Neon calls
   const results = await getAllMatchResults()
   
   // Convert to raw database format for compatibility
@@ -122,27 +112,24 @@ export async function getAllResults() {
 
 // Get results for a specific match
 export async function getMatchResults(matchId: string, round: string) {
-  const supabase = createClient()
+  try {
+    const result = await querySanma(
+      `SELECT * FROM sanma_match_results WHERE match_id = $1 AND round = $2`,
+      [matchId, round]
+    )
 
-  const { data, error } = await supabase
-    .from("match_results")
-    .select("*")
-    .eq("match_id", matchId)
-    .eq("round", round)
-    .single()
+    if (result.rows.length === 0) return null
 
-  if (error && error.code !== "PGRST116") {
+    const data = result.rows[0]
+    return {
+      matchId: data.match_id,
+      round: data.round,
+      date: data.date,
+      results: data.results,
+    }
+  } catch (error) {
     console.error("[v0] Error getting match results:", error)
     throw error
-  }
-
-  if (!data) return null
-
-  return {
-    matchId: data.match_id,
-    round: data.round,
-    date: data.date,
-    results: data.results,
   }
 }
 
@@ -227,29 +214,14 @@ export async function getAllMatchResults(): Promise<MatchResults[]> {
     return cachedResults || []
   }
 
-  // Layer 3: Fetch from Supabase (only if caches are stale/empty)
+  // Layer 3: Fetch from Neon (only if caches are stale/empty)
   try {
-    const supabase = createClient()
-    const { data, error } = await supabase.from("match_results").select("*").order("date", { ascending: true })
+    const result = await querySanma(
+      `SELECT * FROM sanma_match_results WHERE league_id = $1 AND season = $2 ORDER BY date ASC`,
+      [SANMA.LEAGUE_ID, SANMA.CURRENT_SEASON]
+    )
 
-    if (error) {
-      // Check if it's a restriction error
-      if (error.message?.includes("restricted") || error.message?.includes("quota")) {
-        console.warn("[v0] Supabase restricted, switching to offline mode")
-        setSupabaseOffline(true)
-      }
-      // Return stale cache if available
-      if (cachedResults) return cachedResults
-      // Try localStorage as fallback
-      if (typeof window !== "undefined") {
-        const localData = localStorage.getItem(LOCAL_STORAGE_CACHE_KEY)
-        if (localData) return JSON.parse(localData)
-      }
-      return []
-    }
-
-    // Supabase is working, clear offline mode
-    setSupabaseOffline(false)
+    const data = result.rows || []
 
     cachedResults = (data || []).map((row: any) => ({
       matchId: row.match_id,
@@ -272,6 +244,7 @@ export async function getAllMatchResults(): Promise<MatchResults[]> {
     return cachedResults
   } catch (e) {
     // Network error or other issue - use cached data
+    console.error("[v0] Error fetching match results from Neon:", e)
     if (cachedResults) return cachedResults
     if (typeof window !== "undefined") {
       try {
@@ -300,180 +273,68 @@ export function clearMatchResultsCache() {
   }
 }
 
-// Get all news items from Supabase
+// Get all news items from Neon
 export async function getAllNews() {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.from("news_items").select("*").order("created_at", { ascending: false })
-
-  if (error) {
-    console.error("Error getting news:", error)
+  try {
+    const result = await querySanma(
+      `SELECT * FROM news_items WHERE league_id = $1 ORDER BY created_at DESC`,
+      [SANMA.LEAGUE_ID]
+    )
+    return result.rows || []
+  } catch (error) {
+    console.error("[v0] Error getting news:", error)
     return []
   }
-
-  return data || []
 }
 
-// Save news item to Supabase
+// Save news item to Neon
 export async function saveNews(content: string) {
-  const supabase = createClient()
-
-  const { data, error } = await supabase.from("news_items").insert({ content }).select().single()
-
-  if (error) {
-    console.error("Error saving news:", error)
+  try {
+    const result = await querySanma(
+      `INSERT INTO news_items (league_id, content, created_at)
+       VALUES ($1, $2, NOW())
+       RETURNING *`,
+      [SANMA.LEAGUE_ID, content]
+    )
+    return result.rows[0]
+  } catch (error) {
+    console.error("[v0] Error saving news:", error)
     throw error
   }
-
-  return data
 }
 
-// Update news item in Supabase
+// Update news item in Neon
 export async function updateNews(id: number, content: string) {
-  const supabase = createClient()
-
-  const { data, error } = await supabase
-    .from("news_items")
-    .update({ content, updated_at: new Date().toISOString() })
-    .eq("id", id)
-    .select()
-    .single()
-
-  if (error) {
-    console.error("Error updating news:", error)
+  try {
+    const result = await querySanma(
+      `UPDATE news_items SET content = $1, updated_at = NOW()
+       WHERE id = $2 AND league_id = $3
+       RETURNING *`,
+      [content, id, SANMA.LEAGUE_ID]
+    )
+    return result.rows[0]
+  } catch (error) {
+    console.error("[v0] Error updating news:", error)
     throw error
   }
-
-  return data
 }
 
-// Delete news item from Supabase
+// Delete news item from Neon
 export async function deleteNews(id: number) {
-  const supabase = createClient()
-
-  const { error } = await supabase.from("news_items").delete().eq("id", id)
-
-  if (error) {
-    console.error("Error deleting news:", error)
+  try {
+    await querySanma(
+      `DELETE FROM news_items WHERE id = $1 AND league_id = $2`,
+      [id, SANMA.LEAGUE_ID]
+    )
+  } catch (error) {
+    console.error("[v0] Error deleting news:", error)
     throw error
   }
 }
 
-// Migrate data from localStorage to Supabase
+// Migrate data from localStorage to Neon (optional, mainly for backward compatibility)
 export async function migrateLocalStorageToSupabase(): Promise<{ results: number; lineups: number }> {
-  if (typeof window === "undefined") return { results: 0, lineups: 0 }
-
-  const supabase = createClient()
-  const results = []
-  const lineups = []
-
-  // Get all localStorage keys
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i)
-    if (!key) continue
-    const value = localStorage.getItem(key)
-    if (!value) continue
-
-    try {
-      // Migrate results
-      if (key.startsWith("result-")) {
-        const data = JSON.parse(value)
-        const parts = key.replace("result-", "").split("-")
-        const date = `${parts[0]}-${parts[1]}-${parts[2]}`
-        const table = parts[3]
-        const round = parts[4]
-
-        results.push({
-          match_id: `${date}-${table}`,
-          round: round,
-          date: date,
-          results: data.results,
-        })
-      }
-
-      // Migrate lineups
-      if (key.startsWith("lineup-")) {
-        const data = JSON.parse(value)
-        let matchDate = data.matchDate
-
-        // If matchDate is missing, try to extract it from matchId (format: YYYY-MM-DD-T1)
-        if (!matchDate && data.matchId) {
-          const parts = data.matchId.split("-")
-          if (parts.length >= 3) {
-            matchDate = `${parts[0]}-${parts[1]}-${parts[2]}`
-          }
-        }
-
-        // Only add lineup if all required fields are present
-        if (data.matchId && matchDate && data.round && data.players) {
-          lineups.push({
-            match_id: data.matchId,
-            match_date: matchDate,
-            round: data.round,
-            players: data.players,
-          })
-        } else {
-          console.warn("[v0] Skipping lineup with missing required fields:", key)
-        }
-      }
-    } catch (e) {
-      console.error("[v0] Error parsing localStorage data:", e)
-    }
-  }
-
-  // Insert results
-  if (results.length > 0) {
-    const { error: resultsError } = await supabase
-      .from("match_results")
-      .upsert(results, { onConflict: "match_id,round" })
-
-    if (resultsError) {
-      console.error("[v0] Error migrating results:", resultsError)
-    } else {
-      console.log(`[v0] Migrated ${results.length} results to Supabase`)
-    }
-  }
-
-  // Insert lineups
-  if (lineups.length > 0) {
-    const { error: lineupsError } = await supabase.from("match_lineups").upsert(lineups, { onConflict: "match_id" })
-
-    if (lineupsError) {
-      console.error("[v0] Error migrating lineups:", lineupsError)
-    } else {
-      console.log(`[v0] Migrated ${lineups.length} lineups to Supabase`)
-    }
-  }
-
-  // Migrate news from localStorage to Supabase
-  const newsData = localStorage.getItem("newsItems")
-
-  if (newsData) {
-    try {
-      const newsItems = JSON.parse(newsData)
-      const newsToInsert = newsItems.map((item: any) => ({
-        content: JSON.stringify({
-          date: item.date,
-          title: item.title,
-          category: item.category,
-        }),
-      }))
-
-      const { error } = await supabase.from("news_items").insert(newsToInsert)
-
-      if (error) {
-        console.error("Error migrating news:", error)
-        throw error
-      }
-
-      console.log(`[v0] Migrated ${newsItems.length} news items to Supabase`)
-    } catch (e) {
-      console.error("Error parsing news data:", e)
-    }
-  }
-
-  const resultsCount = results.length
-  const lineupsCount = lineups.length
-
-  return { results: resultsCount, lineups: lineupsCount }
+  // Since we're starting fresh in 2026 with no past data, this function can be skipped
+  // It's kept for compatibility only
+  return { results: 0, lineups: 0 }
 }
