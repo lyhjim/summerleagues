@@ -8,7 +8,7 @@ export function LeagueBanner() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/20 via-transparent to-[#00D4FF]/20 rounded-lg blur-xl"></div>
         <div className="relative border-2 border-[#D4AF37]/30 rounded-lg overflow-hidden shadow-2xl shadow-[#00D4FF]/20">
           <Image
-            src="/images/whatsapp-20image-202026-01-14-20at-2014.jpeg"
+            src="/images/summer-2026-poster.png"
             alt="League of Riichi Champions"
             width={1080}
             height={1920}

@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSeasonOpen, setIsSeasonOpen] = useState(false)
 
   const scrollToApplication = () => {
     const element = document.getElementById("application")
@@ -57,18 +58,40 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
-              關於聯賽
-            </Link>
             <Link href="/rules" className="text-sm font-medium hover:text-primary transition-colors">
               比賽規則
             </Link>
             <Link href="/schedule" className="text-sm font-medium hover:text-primary transition-colors">
               賽程表
             </Link>
-            <Link href="/summer-selection" className="text-sm font-medium hover:text-primary transition-colors">
-              夏季選拔賽
-            </Link>
+            {/* Season Dropdown */}
+            <div className="relative">
+              <button
+                className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1"
+                onClick={() => setIsSeasonOpen(!isSeasonOpen)}
+              >
+                過往成績
+                <ChevronDown className={`w-4 h-4 transition-transform ${isSeasonOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isSeasonOpen && (
+                <div className="absolute top-full mt-2 left-0 bg-background border border-border rounded-lg shadow-lg z-50">
+                  <Link
+                    href="/season/2026-spring"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10 hover:text-primary transition-colors"
+                    onClick={() => setIsSeasonOpen(false)}
+                  >
+                    2026 春季賽
+                  </Link>
+                  <Link
+                    href="/season/2026-summer"
+                    className="block px-4 py-2 text-sm hover:bg-primary/10 hover:text-primary transition-colors"
+                    onClick={() => setIsSeasonOpen(false)}
+                  >
+                    夏季選拔賽
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -86,13 +109,6 @@ export function Navigation() {
           <div className="md:hidden py-4 border-t border-border">
             <div className="flex flex-col gap-4">
               <Link
-                href="/about"
-                className="text-sm font-medium hover:text-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                關於聯賽
-              </Link>
-              <Link
                 href="/rules"
                 className="text-sm font-medium hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
@@ -106,13 +122,40 @@ export function Navigation() {
               >
                 賽程表
               </Link>
-              <Link
-                href="/summer-selection"
-                className="text-sm font-medium hover:text-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                夏季選拔賽
-              </Link>
+              {/* Mobile Season Dropdown */}
+              <div>
+                <button
+                  className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1 w-full justify-between"
+                  onClick={() => setIsSeasonOpen(!isSeasonOpen)}
+                >
+                  過往成績
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isSeasonOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isSeasonOpen && (
+                  <div className="mt-2 pl-4 flex flex-col gap-2">
+                    <Link
+                      href="/season/2026-spring"
+                      className="text-sm hover:text-primary transition-colors"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setIsSeasonOpen(false)
+                      }}
+                    >
+                      2026 春季賽
+                    </Link>
+                    <Link
+                      href="/season/2026-summer"
+                      className="text-sm hover:text-primary transition-colors"
+                      onClick={() => {
+                        setIsMenuOpen(false)
+                        setIsSeasonOpen(false)
+                      }}
+                    >
+                      夏季選拔賽
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}

@@ -20,13 +20,13 @@ export default function HomePage() {
           <div className="container mx-auto max-w-6xl text-center">
             <div className="inline-flex items-center gap-2 border border-primary/40 bg-primary/10 text-primary text-xs font-mono px-4 py-1.5 rounded-full mb-6 tracking-widest uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              春季賽 進行中
+              夏季賽 進行中
             </div>
             <p className="text-xl md:text-2xl text-foreground/80 mb-4 text-pretty font-bold">
               8支隊伍 · 共32名選手 · 爭奪冠軍寶座
             </p>
             <p className="text-base text-muted-foreground mb-10 font-mono">
-              <span className="block mb-2">2026.03.09 — 06.11</span>
+              <span className="block mb-2">2026.07.27 — 10.29</span>
               逢星期一及四 19:30 森麻 Youtube 直播
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
@@ -48,14 +48,7 @@ export default function HomePage() {
                 賽程表
               </Link>
             </div>
-            <div className="flex justify-center pt-6 mt-4">
-              <Link
-                href="/summer-selection"
-                className="inline-flex items-center gap-2 bg-orange-600 text-white hover:bg-orange-700 font-bold px-6 py-3 rounded-full transition-colors text-base"
-              >
-                夏季選拔賽
-              </Link>
-            </div>
+
           </div>
         </section>
 
