@@ -83,7 +83,7 @@ export function Navigation() {
                     2026 春季賽
                   </Link>
                   <Link
-                    href="/season/2026-summer"
+                    href="/summer-selection"
                     className="block px-4 py-2 text-sm hover:bg-primary/10 hover:text-primary transition-colors"
                     onClick={() => setIsSeasonOpen(false)}
                   >
@@ -144,7 +144,7 @@ export function Navigation() {
                       2026 春季賽
                     </Link>
                     <Link
-                      href="/season/2026-summer"
+                      href="/summer-selection"
                       className="text-sm hover:text-primary transition-colors"
                       onClick={() => {
                         setIsMenuOpen(false)
