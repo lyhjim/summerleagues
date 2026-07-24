@@ -469,6 +469,12 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "疾風勁草", playerNum: 1 },
     ],
+    finalResults: [
+      { playerName: "℗tony", team: "雙狙人", wind: "E", finalScore: 53, points: 1 },
+      { playerName: "Ching", team: "鬼點子", wind: "S", finalScore: -16.5, points: 0 },
+      { playerName: "Cole 姐", team: "層層疊", wind: "W", finalScore: -0.4, points: 0 },
+      { playerName: "Ernest", team: "疾風勁草", wind: "N", finalScore: -46.1, points: 0 },
+    ],
   },
   {
     gameNumber: 38,
@@ -480,6 +486,12 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
       { teamName: "雙狙人", playerNum: 1 },
+    ],
+    finalResults: [
+      { playerName: "Marco", team: "疾風勁草", wind: "E", finalScore: 13.5, points: 0 },
+      { playerName: "白痴仔", team: "層層疊", wind: "S", finalScore: 58.9, points: 1 },
+      { playerName: "Lyun", team: "鬼點子", wind: "W", finalScore: -52.4, points: 0 },
+      { playerName: "Cal", team: "雙狙人", wind: "N", finalScore: -20, points: 0 },
     ],
   },
   {
@@ -493,6 +505,12 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "層層疊", playerNum: 1 },
     ],
+    finalResults: [
+      { playerName: "Sunny", team: "鬼點子", wind: "E", finalScore: -57.7, points: 0 },
+      { playerName: "℗Johnny", team: "雙狙人", wind: "S", finalScore: 65.1, points: 1 },
+      { playerName: "VLT", team: "疾風勁草", wind: "W", finalScore: 9.5, points: 0 },
+      { playerName: "麥旋風", team: "層層疊", wind: "N", finalScore: -34.9, points: 0 },
+    ],
   },
   {
     gameNumber: 40,
@@ -504,6 +522,12 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "雙狙人", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
+    ],
+    finalResults: [
+      { playerName: "爆鷹", team: "層層疊", wind: "E", finalScore: 56.7, points: 1 },
+      { playerName: "Daniel", team: "疾風勁草", wind: "S", finalScore: 13.9, points: 0 },
+      { playerName: "Seiya", team: "雙狙人", wind: "W", finalScore: -47.4, points: 0 },
+      { playerName: "Marcus", team: "鬼點子", wind: "N", finalScore: -23.2, points: 0 },
     ],
   },
 ]
