@@ -212,11 +212,9 @@ function extractScoresFromSchedule(): ScoreMap {
           w: windMap.w || 0,
           n: windMap.n || 0,
         }
-        console.log("[v0] Extracted game", game.gameNumber, "scores:", scores[game.gameNumber])
       }
     }
   })
   
-  console.log("[v0] Total extracted scores:", scores)
   return scores
 }
