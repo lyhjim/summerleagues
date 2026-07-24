@@ -1,9 +1,14 @@
 import { neon } from "@neondatabase/serverless";
 
-const sql = neon(process.env.DATABASE_URL!);
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
+    if (!process.env.DATABASE_URL) {
+      return Response.json({ photos: [] });
+    }
+    
+    const sql = neon(process.env.DATABASE_URL);
     const photos = await sql`
       SELECT game_number, seat, team_name, player_name, photo_url
       FROM finals_player_photos
@@ -19,6 +24,11 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.DATABASE_URL) {
+      return Response.json({ error: "Database not configured" }, { status: 500 });
+    }
+    
+    const sql = neon(process.env.DATABASE_URL);
     const body = await req.json();
     const { game_number, seat, team_name, player_name, photo_url } = body;
 

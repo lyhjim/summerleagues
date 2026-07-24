@@ -128,6 +128,7 @@ export function computeStandings(scores: ScoreMap, lineups: LineupMap) {
 }
 
 // Live hook: fetches scores + lineups and recomputes, polling every 30s.
+// Falls back to static archived data if API is unavailable.
 export function useSummerStandings() {
   const [scores, setScores] = useState<ScoreMap>({})
   const [lineups, setLineups] = useState<LineupMap>({})
@@ -139,17 +140,43 @@ export function useSummerStandings() {
     const load = async () => {
       try {
         const [sRes, lRes] = await Promise.all([
-          fetch("/api/admin/game-scores", { cache: "no-store" }),
-          fetch("/api/summer-selection/lineups-display", { cache: "no-store" }),
+          fetch("/api/admin/game-scores", { cache: "no-store" }).catch(() => null),
+          fetch("/api/summer-selection/lineups-display", { cache: "no-store" }).catch(() => null),
         ])
+        
+        // Extract scores from finalResults in schedule if API is unavailable
+        if (!sRes || !sRes.ok) {
+          const staticScores = extractScoresFromSchedule()
+          if (active) {
+            setScores(staticScores)
+            setLoading(false)
+          }
+          return
+        }
+
+        if (!lRes || !lRes.ok) {
+          const sData = await sRes.json()
+          if (active) {
+            setScores(sData.scores || {})
+            setLoading(false)
+          }
+          return
+        }
+
         const sData = await sRes.json()
         const lData = await lRes.json()
         if (!active) return
         setScores(sData.scores || {})
         setLineups(lData || {})
         setLoading(false)
-      } catch {
-        if (active) setLoading(false)
+      } catch (error) {
+        console.log("[v0] API fetch failed, using static data", error)
+        // Fallback to static data from schedule
+        const staticScores = extractScoresFromSchedule()
+        if (active) {
+          setScores(staticScores)
+          setLoading(false)
+        }
       }
     }
 
@@ -163,4 +190,31 @@ export function useSummerStandings() {
 
   const { teams, players } = computeStandings(scores, lineups)
   return { teams, players, loading }
+}
+
+// Extract scores from the schedule's finalResults field
+function extractScoresFromSchedule(): ScoreMap {
+  const scores: ScoreMap = {}
+  
+  summerSchedule.forEach((game) => {
+    if (game.finalResults && game.finalResults.length > 0) {
+      const windMap: Record<string, number> = {}
+      game.finalResults.forEach((result) => {
+        const windKey = result.wind.toLowerCase() as 'e' | 's' | 'w' | 'n'
+        windMap[windKey] = result.finalScore
+      })
+      
+      // Only add if we have all 4 winds
+      if (Object.keys(windMap).length === 4) {
+        scores[game.gameNumber] = {
+          e: windMap.e || 0,
+          s: windMap.s || 0,
+          w: windMap.w || 0,
+          n: windMap.n || 0,
+        }
+      }
+    }
+  })
+  
+  return scores
 }

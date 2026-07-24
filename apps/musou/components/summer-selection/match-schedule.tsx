@@ -36,21 +36,62 @@ export function MatchSchedule() {
     const fetchData = async () => {
       try {
         const [lineupsRes, scoresRes] = await Promise.all([
-          fetch("/api/summer-selection/lineups-display"),
-          fetch("/api/admin/game-scores"),
+          fetch("/api/summer-selection/lineups-display").catch(() => null),
+          fetch("/api/admin/game-scores").catch(() => null),
         ])
 
-        if (lineupsRes.ok) {
+        if (lineupsRes?.ok) {
           const data = await lineupsRes.json()
           setLineups(data)
         }
 
-        if (scoresRes.ok) {
+        if (scoresRes?.ok) {
           const data = await scoresRes.json()
           setScores(data.scores)
+        } else {
+          // Fallback to static scores from schedule
+          const staticScores: GameScores = {}
+          summerSchedule.forEach((game) => {
+            if (game.finalResults && game.finalResults.length === 4) {
+              const windMap: Record<string, number> = {}
+              game.finalResults.forEach((result) => {
+                const windKey = result.wind.toLowerCase() as 'e' | 's' | 'w' | 'n'
+                windMap[windKey] = result.finalScore
+              })
+              if (Object.keys(windMap).length === 4) {
+                staticScores[game.gameNumber] = {
+                  e: windMap.e || 0,
+                  s: windMap.s || 0,
+                  w: windMap.w || 0,
+                  n: windMap.n || 0,
+                }
+              }
+            }
+          })
+          setScores(staticScores)
         }
       } catch (error) {
-        console.error("[v0] Error fetching data:", error)
+        console.log("[v0] Error fetching data, using static fallback:", error)
+        // Fallback to static scores
+        const staticScores: GameScores = {}
+        summerSchedule.forEach((game) => {
+          if (game.finalResults && game.finalResults.length === 4) {
+            const windMap: Record<string, number> = {}
+            game.finalResults.forEach((result) => {
+              const windKey = result.wind.toLowerCase() as 'e' | 's' | 'w' | 'n'
+              windMap[windKey] = result.finalScore
+            })
+            if (Object.keys(windMap).length === 4) {
+              staticScores[game.gameNumber] = {
+                e: windMap.e || 0,
+                s: windMap.s || 0,
+                w: windMap.w || 0,
+                n: windMap.n || 0,
+              }
+            }
+          }
+        })
+        setScores(staticScores)
       } finally {
         setLoading(false)
       }

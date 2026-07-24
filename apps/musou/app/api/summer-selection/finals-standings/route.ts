@@ -2,10 +2,16 @@ import { neon } from "@neondatabase/serverless"
 import { summerSchedule } from "@/lib/summer-selection/schedule"
 import { calculateFinalPoints, getRankings } from "@/lib/summer-selection/score-calculator"
 
-const sql = neon(process.env.DATABASE_URL as string)
+export const dynamic = "force-dynamic"
+
+// const sql = neon(process.env.DATABASE_URL as string)
 
 export async function GET() {
   try {
+    if (!process.env.DATABASE_URL) {
+      return Response.json({ })
+    }
+    const sql = neon(process.env.DATABASE_URL)
     // Fetch all game scores for finals (Games 37-40)
     const gamesResult = await sql`
       SELECT game_number, e_score, s_score, w_score, n_score

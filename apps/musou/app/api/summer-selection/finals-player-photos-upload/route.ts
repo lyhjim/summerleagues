@@ -1,12 +1,17 @@
 import { neon } from "@neondatabase/serverless"
+export const dynamic = "force-dynamic"
 
-const sql = neon(process.env.DATABASE_URL || "")
+// const sql = neon(process.env.DATABASE_URL || "")
 
 // Allowed finals teams
 const FINALS_TEAMS = ["鬼點子", "層層疊", "雙狙人", "疾風勁草"]
 
 export async function POST(request: Request) {
   try {
+    if (!process.env.DATABASE_URL) {
+      return Response.json({ })
+    }
+    const sql = neon(process.env.DATABASE_URL)
     const formData = await request.formData()
     const team_name = formData.get("team_name") as string
     const player_name = formData.get("player_name") as string
