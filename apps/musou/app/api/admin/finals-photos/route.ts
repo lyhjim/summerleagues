@@ -61,6 +61,11 @@ export async function POST(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
+    if (!process.env.DATABASE_URL) {
+      return Response.json({ error: "Database not configured" }, { status: 500 });
+    }
+
+    const sql = neon(process.env.DATABASE_URL);
     const { searchParams } = new URL(req.url);
     const gameNumber = searchParams.get("game_number");
     const seat = searchParams.get("seat");
@@ -72,9 +77,17 @@ export async function DELETE(req: Request) {
       );
     }
 
+    const parsedGameNumber = Number.parseInt(gameNumber, 10);
+    if (Number.isNaN(parsedGameNumber)) {
+      return Response.json(
+        { error: "game_number must be a number" },
+        { status: 400 }
+      );
+    }
+
     await sql`
       DELETE FROM finals_player_photos
-      WHERE game_number = ${parseInt(gameNumber)} AND seat = ${seat}
+      WHERE game_number = ${parsedGameNumber} AND seat = ${seat}
     `;
 
     return Response.json({ success: true });
