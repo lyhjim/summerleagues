@@ -1,0 +1,68 @@
+name: CI
+
+# Mirrors the Vercel build pipeline so breakage surfaces here first.
+#
+# The `build` job reproduces exactly what broke deployment before:
+# `pnpm install --frozen-lockfile` aborts when pnpm-lock.yaml is missing from
+# the repo or out of sync with any package.json. Keep this job green and that
+# class of deploy failure cannot reach Vercel.
+#
+# No secrets required: every route in all three apps is dynamic
+# (server-rendered on demand), so `next build` completes without DATABASE_URL.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Install and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # Reads the pnpm version from the root packageManager field (pnpm@9.10.0),
+      # so CI and local installs always resolve the lockfile identically.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      # The exact command Vercel runs. Fails loudly if the lockfile is absent
+      # or drifts from the manifests.
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all apps
+        run: pnpm -r build
+
+  types:
+    name: Type check (informational)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Non-blocking on purpose. There are 15 pre-existing type errors, and all
+    # three apps set `typescript.ignoreBuildErrors: true`, so type failures do
+    # not currently break deploys. This job tracks progress toward zero errors.
+    # Once it passes, remove `continue-on-error` here and flip
+    # ignoreBuildErrors to false so type errors block deploys for real.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Type check
+        run: pnpm run type-check
