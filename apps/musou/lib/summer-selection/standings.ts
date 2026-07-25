@@ -189,7 +189,6 @@ export function useSummerStandings() {
   }, [])
 
   const { teams, players } = computeStandings(scores, lineups)
-  console.log("[v0] Standings computed - scores:", Object.keys(scores).length, "games, teams:", teams.length, "players:", players.length)
   return { teams, players, loading }
 }
 
@@ -217,6 +216,5 @@ function extractScoresFromSchedule(): ScoreMap {
     }
   })
   
-  console.log("[v0] Extracted scores from schedule:", Object.keys(scores).length, "games")
   return scores
 }
