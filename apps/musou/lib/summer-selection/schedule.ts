@@ -29,12 +29,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "影雀", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 231, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "S", finalScore: 150, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "W", finalScore: 188, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 431, points: 0 },
-    ],
   },
   {
     gameNumber: 2,
@@ -46,12 +40,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "影雀", playerNum: 1 },
       { teamName: "雙狙人", playerNum: 1 },
       { teamName: "層層疊", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "諾亞方舟", wind: "E", finalScore: 198, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "S", finalScore: 204, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "W", finalScore: 574, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "N", finalScore: 24, points: 0 },
     ],
   },
   {
@@ -65,12 +53,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "影雀", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "雙狙人", wind: "E", finalScore: 489, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "S", finalScore: 102, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "W", finalScore: 168, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "N", finalScore: 241, points: 0 },
-    ],
   },
   {
     gameNumber: 4,
@@ -82,12 +64,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 2 },
       { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "影雀", wind: "E", finalScore: 121, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "S", finalScore: 331, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 336, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 212, points: 0 },
     ],
   },
   {
@@ -101,12 +77,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 2 },
       { teamName: "影雀", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: 498, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "S", finalScore: 206, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "W", finalScore: 224, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "N", finalScore: 72, points: 0 },
-    ],
   },
   {
     gameNumber: 6,
@@ -118,12 +88,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "鬼點子", playerNum: 1 },
       { teamName: "影雀", playerNum: 2 },
       { teamName: "疾風勁草", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 169, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "S", finalScore: 366, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "W", finalScore: 123, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "N", finalScore: 342, points: 0 },
     ],
   },
   {
@@ -137,12 +101,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "鬼點子", playerNum: 2 },
       { teamName: "雙狙人", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "疾風勁草", wind: "E", finalScore: 46, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "S", finalScore: 250, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "W", finalScore: 422, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "N", finalScore: 282, points: 0 },
-    ],
   },
   {
     gameNumber: 8,
@@ -154,12 +112,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "鬼點子", playerNum: 2 },
       { teamName: "諾亞方舟", playerNum: 2 },
       { teamName: "疾風勁草", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "雙狙人", wind: "E", finalScore: 276, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "S", finalScore: 141, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "W", finalScore: 194, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "N", finalScore: 389, points: 0 },
     ],
   },
   {
@@ -173,13 +125,9 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "疾風勁草", playerNum: 2 },
       { teamName: "諾亞方舟", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: 498, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "S", finalScore: -71, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 236, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 337, points: 0 },
-    ],
   },
+
+  // Day 2 - June 18
   {
     gameNumber: 10,
     date: "6月18日",
@@ -190,12 +138,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 1 },
       { teamName: "影雀", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: 743, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "S", finalScore: 377, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "W", finalScore: -110, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "N", finalScore: -10, points: 0 },
     ],
   },
   {
@@ -209,12 +151,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "影雀", wind: "E", finalScore: 404, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "S", finalScore: 173, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "W", finalScore: 198, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 225, points: 0 },
-    ],
   },
   {
     gameNumber: 12,
@@ -226,12 +162,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "影雀", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 160, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "S", finalScore: 205, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "W", finalScore: 209, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 426, points: 0 },
     ],
   },
   {
@@ -245,12 +175,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 2 },
       { teamName: "雙狙人", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "諾亞方舟", wind: "E", finalScore: 47, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "S", finalScore: 283, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "W", finalScore: 321, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "N", finalScore: 349, points: 0 },
-    ],
   },
   {
     gameNumber: 14,
@@ -262,12 +186,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 2 },
       { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "雙狙人", wind: "E", finalScore: 17, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "S", finalScore: 364, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 203, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 416, points: 0 },
     ],
   },
   {
@@ -281,12 +199,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "諾亞方舟", playerNum: 2 },
       { teamName: "層層疊", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "疾風勁草", wind: "E", finalScore: 114, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "S", finalScore: 571, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "W", finalScore: 110, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "N", finalScore: 205, points: 0 },
-    ],
   },
   {
     gameNumber: 16,
@@ -298,12 +210,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "影雀", playerNum: 2 },
       { teamName: "鬼點子", playerNum: 2 },
       { teamName: "疾風勁草", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "雙狙人", wind: "E", finalScore: 130, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "S", finalScore: 182, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "W", finalScore: 287, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "N", finalScore: 401, points: 0 },
     ],
   },
   {
@@ -317,12 +223,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "影雀", playerNum: 2 },
       { teamName: "雙狙人", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "疾風勁草", wind: "E", finalScore: 231, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "S", finalScore: 154, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "W", finalScore: 380, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "N", finalScore: 235, points: 0 },
-    ],
   },
   {
     gameNumber: 18,
@@ -335,13 +235,9 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "雙狙人", playerNum: 2 },
       { teamName: "鬼點子", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "影雀", wind: "E", finalScore: -102, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "S", finalScore: 393, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "W", finalScore: 270, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 439, points: 0 },
-    ],
   },
+
+  // Day 3 - June 22
   {
     gameNumber: 19,
     date: "6月22日",
@@ -352,12 +248,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "影雀", playerNum: 1 },
       { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "層層疊", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "諾亞方舟", wind: "E", finalScore: 467, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "S", finalScore: 67, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 161, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "N", finalScore: 305, points: 0 },
     ],
   },
   {
@@ -371,12 +261,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "影雀", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 395, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "S", finalScore: 305, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "W", finalScore: 291, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 9, points: 0 },
-    ],
   },
   {
     gameNumber: 21,
@@ -388,12 +272,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 1 },
       { teamName: "疾風勁草", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "影雀", wind: "E", finalScore: 302, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "S", finalScore: 151, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "W", finalScore: 92, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "N", finalScore: 455, points: 0 },
     ],
   },
   {
@@ -407,12 +285,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "雙狙人", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 538, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "S", finalScore: 295, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "W", finalScore: -24, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 191, points: 0 },
-    ],
   },
   {
     gameNumber: 23,
@@ -424,12 +296,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "雙狙人", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
       { teamName: "層層疊", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "諾亞方舟", wind: "E", finalScore: 430, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "S", finalScore: 222, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "W", finalScore: 309, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "N", finalScore: 39, points: 0 },
     ],
   },
   {
@@ -443,12 +309,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "層層疊", playerNum: 2 },
       { teamName: "雙狙人", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: 333, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "S", finalScore: 84, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "W", finalScore: 157, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "N", finalScore: 426, points: 0 },
-    ],
   },
   {
     gameNumber: 25,
@@ -460,12 +320,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "雙狙人", playerNum: 2 },
       { teamName: "影雀", playerNum: 2 },
       { teamName: "鬼點子", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "疾風勁草", wind: "E", finalScore: 120, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "S", finalScore: 210, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "W", finalScore: 220, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 450, points: 0 },
     ],
   },
   {
@@ -479,12 +333,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "雙狙人", playerNum: 2 },
       { teamName: "疾風勁草", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: 342, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "S", finalScore: -142, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "W", finalScore: 284, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "N", finalScore: 516, points: 0 },
-    ],
   },
   {
     gameNumber: 27,
@@ -497,13 +345,9 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "疾風勁草", playerNum: 2 },
       { teamName: "影雀", playerNum: 2 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "雙狙人", wind: "E", finalScore: 429, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "S", finalScore: 139, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 119, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "N", finalScore: 313, points: 0 },
-    ],
   },
+
+  // Day 4 - June 25
   {
     gameNumber: 28,
     date: "6月25日",
@@ -514,12 +358,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "諾亞方舟", playerNum: 1 },
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "影雀", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: 318, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "S", finalScore: 409, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "W", finalScore: 9, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "N", finalScore: 264, points: 0 },
     ],
   },
   {
@@ -533,12 +371,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "諾亞方舟", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "影雀", wind: "E", finalScore: 121, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "S", finalScore: 322, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "W", finalScore: 233, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 324, points: 0 },
-    ],
   },
   {
     gameNumber: 30,
@@ -546,16 +378,10 @@ export const summerSchedule: SummerMatch[] = [
     day: 4,
     location: "台北",
     teams: [
-      { teamName: "層層疊", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 1 },
       { teamName: "影雀", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 160, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "S", finalScore: 41, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "W", finalScore: 341, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 458, points: 0 },
+      { teamName: "層層疊", playerNum: 1 },
     ],
   },
   {
@@ -564,16 +390,10 @@ export const summerSchedule: SummerMatch[] = [
     day: 4,
     location: "東京Ultima",
     teams: [
-      { teamName: "層層疊", playerNum: 2 },
-      { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "雙狙人", playerNum: 1 },
+      { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 168, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "S", finalScore: 326, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "W", finalScore: 138, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 368, points: 0 },
+      { teamName: "層層疊", playerNum: 2 },
     ],
   },
   {
@@ -582,16 +402,10 @@ export const summerSchedule: SummerMatch[] = [
     day: 4,
     location: "東京Ultima",
     teams: [
-      { teamName: "雙狙人", playerNum: 1 },
       { teamName: "層層疊", playerNum: 2 },
-      { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "雙狙人", wind: "E", finalScore: 462, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "S", finalScore: 154, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: -4, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 388, points: 0 },
+      { teamName: "疾風勁草", playerNum: 1 },
+      { teamName: "雙狙人", playerNum: 1 },
     ],
   },
   {
@@ -601,15 +415,9 @@ export const summerSchedule: SummerMatch[] = [
     location: "東京Ultima",
     teams: [
       { teamName: "疾風勁草", playerNum: 1 },
+      { teamName: "層層疊", playerNum: 2 },
       { teamName: "雙狙人", playerNum: 1 },
       { teamName: "諾亞方舟", playerNum: 2 },
-      { teamName: "層層疊", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "疾風勁草", wind: "E", finalScore: 193, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "S", finalScore: 412, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "W", finalScore: 269, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "N", finalScore: 126, points: 0 },
     ],
   },
   {
@@ -618,16 +426,10 @@ export const summerSchedule: SummerMatch[] = [
     day: 4,
     location: "東京Rex3",
     teams: [
-      { teamName: "諾亞方舟", playerNum: 2 },
       { teamName: "影雀", playerNum: 2 },
-      { teamName: "疾風勁草", playerNum: 2 },
       { teamName: "鬼點子", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "諾亞方舟", wind: "E", finalScore: 134, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "S", finalScore: 161, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 67, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 638, points: 0 },
+      { teamName: "雙狙人", playerNum: 2 },
+      { teamName: "疾風勁草", playerNum: 2 },
     ],
   },
   {
@@ -636,16 +438,10 @@ export const summerSchedule: SummerMatch[] = [
     day: 4,
     location: "東京Rex3",
     teams: [
+      { teamName: "疾風勁草", playerNum: 2 },
+      { teamName: "雙狙人", playerNum: 2 },
       { teamName: "鬼點子", playerNum: 2 },
       { teamName: "影雀", playerNum: 2 },
-      { teamName: "疾風勁草", playerNum: 2 },
-      { teamName: "諾亞方舟", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: -118, points: 0 },
-      { playerName: "TBD", team: "影雀", wind: "S", finalScore: 366, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 311, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "N", finalScore: 441, points: 0 },
     ],
   },
   {
@@ -654,18 +450,13 @@ export const summerSchedule: SummerMatch[] = [
     day: 4,
     location: "東京Rex3",
     teams: [
-      { teamName: "影雀", playerNum: 2 },
-      { teamName: "疾風勁草", playerNum: 2 },
-      { teamName: "諾亞方舟", playerNum: 2 },
       { teamName: "鬼點子", playerNum: 2 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "影雀", wind: "E", finalScore: 107, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "S", finalScore: 300, points: 0 },
-      { playerName: "TBD", team: "諾亞方舟", wind: "W", finalScore: 405, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 188, points: 0 },
+      { teamName: "疾風勁草", playerNum: 2 },
+      { teamName: "影雀", playerNum: 2 },
+      { teamName: "雙狙人", playerNum: 2 },
     ],
   },
+
   // Finals - June 29 & July 2
   {
     gameNumber: 37,
@@ -677,12 +468,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "鬼點子", playerNum: 1 },
       { teamName: "層層疊", playerNum: 1 },
       { teamName: "疾風勁草", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "雙狙人", wind: "E", finalScore: 330, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "S", finalScore: 235, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "W", finalScore: 296, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "N", finalScore: 139, points: 0 },
     ],
   },
   {
@@ -696,12 +481,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "鬼點子", playerNum: 1 },
       { teamName: "雙狙人", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "疾風勁草", wind: "E", finalScore: 335, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "S", finalScore: 389, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "W", finalScore: 76, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "N", finalScore: 200, points: 0 },
-    ],
   },
   {
     gameNumber: 39,
@@ -714,12 +493,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "層層疊", playerNum: 1 },
     ],
-    finalResults: [
-      { playerName: "TBD", team: "鬼點子", wind: "E", finalScore: 53, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "S", finalScore: 451, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "W", finalScore: 295, points: 0 },
-      { playerName: "TBD", team: "層層疊", wind: "N", finalScore: 201, points: 0 },
-    ],
   },
   {
     gameNumber: 40,
@@ -731,12 +504,6 @@ export const summerSchedule: SummerMatch[] = [
       { teamName: "疾風勁草", playerNum: 1 },
       { teamName: "雙狙人", playerNum: 1 },
       { teamName: "鬼點子", playerNum: 1 },
-    ],
-    finalResults: [
-      { playerName: "TBD", team: "層層疊", wind: "E", finalScore: 367, points: 0 },
-      { playerName: "TBD", team: "疾風勁草", wind: "S", finalScore: 339, points: 0 },
-      { playerName: "TBD", team: "雙狙人", wind: "W", finalScore: 126, points: 0 },
-      { playerName: "TBD", team: "鬼點子", wind: "N", finalScore: 168, points: 0 },
     ],
   },
 ]

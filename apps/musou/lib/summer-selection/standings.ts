@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react"
 import { summerSchedule } from "./schedule"
 import { calculateFinalPoints, getRankings } from "./score-calculator"
+import { archivedScores } from "./archived-scores"
+import { archivedLineupsData } from "./archived-lineups"
 
 // Only preliminary games count toward team / MVP standings.
 // (Games 37-40 are the finals and use placeholder team names like "第一名".)
@@ -144,37 +146,21 @@ export function useSummerStandings() {
           fetch("/api/summer-selection/lineups-display", { cache: "no-store" }).catch(() => null),
         ])
         
-        // Extract scores from finalResults in schedule if API is unavailable
-        if (!sRes || !sRes.ok) {
-          const staticScores = extractScoresFromSchedule()
-          if (active) {
-            setScores(staticScores)
-            setLoading(false)
-          }
-          return
-        }
-
-        if (!lRes || !lRes.ok) {
-          const sData = await sRes.json()
-          if (active) {
-            setScores(sData.scores || {})
-            setLoading(false)
-          }
-          return
-        }
-
-        const sData = await sRes.json()
-        const lData = await lRes.json()
+        // Fall back to the archived snapshot for whichever endpoint is unavailable.
+        const sData = sRes && sRes.ok ? await sRes.json() : null
+        const lData = lRes && lRes.ok ? await lRes.json() : null
         if (!active) return
-        setScores(sData.scores || {})
-        setLineups(lData || {})
+
+        const nextScores = sData?.scores && Object.keys(sData.scores).length ? sData.scores : archivedScores
+        const nextLineups = lData && Object.keys(lData).length ? lData : archivedLineupsData
+
+        setScores(nextScores)
+        setLineups(nextLineups)
         setLoading(false)
-      } catch (error) {
-        console.log("[v0] API fetch failed, using static data", error)
-        // Fallback to static data from schedule
-        const staticScores = extractScoresFromSchedule()
+      } catch {
         if (active) {
-          setScores(staticScores)
+          setScores(archivedScores)
+          setLineups(archivedLineupsData)
           setLoading(false)
         }
       }
@@ -190,31 +176,4 @@ export function useSummerStandings() {
 
   const { teams, players } = computeStandings(scores, lineups)
   return { teams, players, loading }
-}
-
-// Extract scores from the schedule's finalResults field
-function extractScoresFromSchedule(): ScoreMap {
-  const scores: ScoreMap = {}
-  
-  summerSchedule.forEach((game) => {
-    if (game.finalResults && game.finalResults.length > 0) {
-      const windMap: Record<string, number> = {}
-      game.finalResults.forEach((result) => {
-        const windKey = result.wind.toLowerCase() as 'e' | 's' | 'w' | 'n'
-        windMap[windKey] = result.finalScore
-      })
-      
-      // Only add if we have all 4 winds
-      if (Object.keys(windMap).length === 4) {
-        scores[game.gameNumber] = {
-          e: windMap.e || 0,
-          s: windMap.s || 0,
-          w: windMap.w || 0,
-          n: windMap.n || 0,
-        }
-      }
-    }
-  })
-  
-  return scores
 }

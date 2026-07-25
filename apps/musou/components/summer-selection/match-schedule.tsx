@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { summerSchedule } from "@/lib/summer-selection/schedule"
 import { archivedLineupsData } from "@/lib/summer-selection/archived-lineups"
+import { archivedScores } from "@/lib/summer-selection/archived-scores"
 import { calculateFinalPoints, getRankings, formatScore } from "@/lib/summer-selection/score-calculator"
 
 const windMarks = {
@@ -41,62 +42,15 @@ export function MatchSchedule() {
           fetch("/api/admin/game-scores").catch(() => null),
         ])
 
-        if (lineupsRes?.ok) {
-          const data = await lineupsRes.json()
-          setLineups(data)
-        } else {
-          // Fallback to archived lineups for finals
-          setLineups(archivedLineupsData)
-        }
+        const lineupsData = lineupsRes?.ok ? await lineupsRes.json() : null
+        const scoresData = scoresRes?.ok ? await scoresRes.json() : null
 
-        if (scoresRes?.ok) {
-          const data = await scoresRes.json()
-          setScores(data.scores)
-        } else {
-          // Fallback to static scores from schedule
-          const staticScores: GameScores = {}
-          summerSchedule.forEach((game) => {
-            if (game.finalResults && game.finalResults.length === 4) {
-              const windMap: Record<string, number> = {}
-              game.finalResults.forEach((result) => {
-                const windKey = result.wind.toLowerCase() as 'e' | 's' | 'w' | 'n'
-                windMap[windKey] = result.finalScore
-              })
-              if (Object.keys(windMap).length === 4) {
-                staticScores[game.gameNumber] = {
-                  e: windMap.e || 0,
-                  s: windMap.s || 0,
-                  w: windMap.w || 0,
-                  n: windMap.n || 0,
-                }
-              }
-            }
-          })
-          setScores(staticScores)
-        }
-      } catch (error) {
-        console.log("[v0] Error fetching data, using static fallback:", error)
-        // Fallback to static lineups and scores
+        // Fall back to the archived snapshot for whichever endpoint is unavailable.
+        setLineups(lineupsData && Object.keys(lineupsData).length ? lineupsData : archivedLineupsData)
+        setScores(scoresData?.scores && Object.keys(scoresData.scores).length ? scoresData.scores : archivedScores)
+      } catch {
         setLineups(archivedLineupsData)
-        const staticScores: GameScores = {}
-        summerSchedule.forEach((game) => {
-          if (game.finalResults && game.finalResults.length === 4) {
-            const windMap: Record<string, number> = {}
-            game.finalResults.forEach((result) => {
-              const windKey = result.wind.toLowerCase() as 'e' | 's' | 'w' | 'n'
-              windMap[windKey] = result.finalScore
-            })
-            if (Object.keys(windMap).length === 4) {
-              staticScores[game.gameNumber] = {
-                e: windMap.e || 0,
-                s: windMap.s || 0,
-                w: windMap.w || 0,
-                n: windMap.n || 0,
-              }
-            }
-          }
-        })
-        setScores(staticScores)
+        setScores(archivedScores)
       } finally {
         setLoading(false)
       }
