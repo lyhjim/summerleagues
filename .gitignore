@@ -7,7 +7,10 @@ __v0_jsx-dev-runtime.ts
 
 # Dependencies
 node_modules
-pnpm-lock.yaml
+
+# pnpm-lock.yaml is intentionally NOT ignored: `pnpm install --frozen-lockfile`
+# (Vercel's default install command) fails without it. Keep foreign lockfiles
+# ignored so they can't confuse package manager detection.
 yarn.lock
 package-lock.json
 
