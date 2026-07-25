@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { summerSchedule } from "@/lib/summer-selection/schedule"
+import { archivedLineupsData } from "@/lib/summer-selection/archived-lineups"
 import { calculateFinalPoints, getRankings, formatScore } from "@/lib/summer-selection/score-calculator"
 
 const windMarks = {
@@ -43,6 +44,9 @@ export function MatchSchedule() {
         if (lineupsRes?.ok) {
           const data = await lineupsRes.json()
           setLineups(data)
+        } else {
+          // Fallback to archived lineups for finals
+          setLineups(archivedLineupsData)
         }
 
         if (scoresRes?.ok) {
@@ -72,7 +76,8 @@ export function MatchSchedule() {
         }
       } catch (error) {
         console.log("[v0] Error fetching data, using static fallback:", error)
-        // Fallback to static scores
+        // Fallback to static lineups and scores
+        setLineups(archivedLineupsData)
         const staticScores: GameScores = {}
         summerSchedule.forEach((game) => {
           if (game.finalResults && game.finalResults.length === 4) {
