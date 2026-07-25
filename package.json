@@ -8,7 +8,8 @@
     "dev": "pnpm -r --parallel dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
-    "type-check": "pnpm -r tsc --noEmit"
+    "type-check": "pnpm -r exec tsc --noEmit",
+    "verify-lockfile": "pnpm install --frozen-lockfile"
   },
   "devDependencies": {
     "@types/node": "^22",
